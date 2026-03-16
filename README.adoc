@@ -1,0 +1,72 @@
+== Emoba Assignment 1 - BlockbusterApp
+
+=== Bearbeitet von
+
+* Vorname Nachname
+
+
+=== Abgabe
+
+* Klasse 6iCbb, Montag, 20.04.2026,  12:00 Uhr - Michael Job / Mike Wong
+
+Die Abgabe erfolgt durch ein "Push" auf den Main-Branch Ihres GitHub-Repositories.
+
+=== Initiale Schritte
+
+* Tragen Sie ihren Namen unter "Bearbeitet von" ein.
+* Pushen Sie diese Änderung am besten sofort ins Git-Repository (z.B. via "Git -> Commit… -> Commit&Push")
+
+=== Die Aufgabe: Moviesuche/VideoPlayer mittels TMDB API
+
+Entwerfen und implementieren Sie einen Moviesuche/VideoPlayer für TMDB als native Android App.
+
+Es handelt sich um eine Einzelarbeit. Sich gegenseitig zu unterstützen ist durchaus erwünscht (am besten via Posting in Teams). Falls einzelne Funktionen gemeinsam entwickelt werden, ist dies im Code entsprechend zu markieren. Ansonsten wird es als Plagiat gewertet.
+
+Die im Unterricht gezeigte App ist nur eine mögliche Umsetzung des gewünschten Funktionsumfangs. Sie können dieses UI übernehmen oder aber einen eigenen Entwurf, beispielsweise wie im Modul uidC erarbeitet, umsetzen.
+
+Die Verwendung von KI ist erlaubt, generierter Code muss aber verstanden und erklärt werden können.
+
+Anforderungen:
+
+* Gewünschte Funktionalität
+** Suche nach Filmtitel, nach Schauspieler*in, Anzeige der Resultate und Verwalten von Lieblings-Filmen.
+*** Anzeige der Liste von gefundenen Filmen
+*** Anzeige der Liste der gefundenen Personen
+*** Anzeige und Abspielmöglichkeit des Trailers eines Films
+*** Anzeige der Liste von Lieblings-Filme
+** Abspielen, Pausieren von Trailern eines Films.
+* Verwendung der TMDB-API
+** https://developers.themoviedb.org
+* Das UI ist komplett mit Jetpack Compose zu implementieren.
+** https://developer.android.com/jetpack/compose
+* Implementierungssprache für die gesamte Applikation ist Kotlin.
+* Die im Unterricht erarbeitete Grundstruktur einer Android-App ist anzuwenden. Strukturierung der App in die 3 Layer.
+* UI Code ist klar strukturiert in unabhängige Screens und via Composable Functions.
+* Das TMDB-Logo soll an prominenter Stelle sichtbar sein (Vorgabe aus den Lizenzbedingungen)
+** https://developer.themoviedb.org/docs/faq#what-are-the-attribution-requirements
+* Das UI soll verständlich und ordentlich aussehen (keine Minimallösungen mit offensichtlichen Flaws)
+* Das UX soll intuitiv also selbsterklärend funktionieren.
+* TestCases für ViewModels, Data Klassen und Services
+* Weitere Libraries als die, die im Unterricht verwendet wurden, sind nicht erlaubt. Falls Sie zusätzliche Libraries verwenden möchten, um zusätzliche Funktionalität einzubauen, ist dies erlaubt.
+
+
+=== Bewertung
+
+Es können in diesem Assignment maximal 4 Punkte erreicht werden. Der Fokus liegt dabei, neben der Umsetzung der gewünschten Funktionalität, auf der Code-Qualität. Der Coolness-Faktor der Applikation wird über den Coolest App Award berücksichtigt.
+
+* 4 Punkte (Maximalpunktzahl)
+** Umsetzung der gesamten gewünschten Funktionalität und der oben genannten Grundanforderungen, insbesondere:
+*** Code Struktur (3 Layer), Qualität (clean code)
+*** App ist intuitiv bedienbar und benutzerfreundlich dank qualitativem UI/UX.
+*** TestCases vorhanden
+*** optional: App wurde im Unterricht präsentiert zur Teilnahme am Coolest App Award
+* 1 Punkt (Mindestanforderung)
+** Ein Film (durch Text-Input User) wird via TMDB-API bezogen, der Titel des Films und der Trailer wird angezeigt. Der Trailer kann abgespielt und pausiert werden.
+* 0 Punkte
+** falls die Kriterien für einen Punkt nicht erfüllt sind
+** falls das TMDB-API nicht verwendet wird
+*** die Film-Informationen wie Titel und Preview-URL müssen via API bezogen werden (keine hart-codierten Filmdaten, ID etc.)
+** falls das Projekt nicht kompilierfähig ist
+** falls die App abstürzt bevor der erste Screen angezeigt wird
+** falls ihr Name nicht unter 'bearbeitet von' eingetragen ist
+** für Plagiate
