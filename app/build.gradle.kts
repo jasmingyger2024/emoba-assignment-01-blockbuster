@@ -1,8 +1,17 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.androidx.room) //for room
     alias(libs.plugins.ksp)
+}
+
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) {
+        file.inputStream().use { load(it) }
+    }
 }
 
 room {
@@ -27,6 +36,12 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
+
+        buildConfigField(
+            "String",
+            "tmdp-api-key",
+            "\"${localProperties.getProperty("tmdp-api-key", "")}\""
+        )
     }
 
     signingConfigs {
