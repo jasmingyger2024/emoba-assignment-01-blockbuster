@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import fhnw.emoba.AppBase
 import fhnw.emoba.blockbuster.viewmodel.BlockbusterModel
-import fhnw.emoba.blockbuster.ui.AppUI
+import fhnw.emoba.blockbuster.ui.BlockbusterUI
 
 object BlockbusterApp : AppBase<BlockbusterModel>() {
 
@@ -20,7 +20,7 @@ object BlockbusterApp : AppBase<BlockbusterModel>() {
 
     @Composable
     override fun AppUi(viewModel: BlockbusterModel) {
-        AppUI(viewModel)
+        BlockbusterUI(viewModel)
     }
 
 }
