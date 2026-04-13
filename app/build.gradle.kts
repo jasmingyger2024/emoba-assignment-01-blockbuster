@@ -39,8 +39,8 @@ android {
 
         buildConfigField(
             "String",
-            "tmdp-api-key",
-            "\"${localProperties.getProperty("tmdp-api-key", "")}\""
+            "tmdp_api_key",
+            "\"${localProperties.getProperty("tmdp_api_key", "")}\""
         )
     }
 
@@ -75,6 +75,7 @@ android {
     buildFeatures {
         compose = true
         viewBinding = true
+        buildConfig = true
     }
 
     packaging.resources {
