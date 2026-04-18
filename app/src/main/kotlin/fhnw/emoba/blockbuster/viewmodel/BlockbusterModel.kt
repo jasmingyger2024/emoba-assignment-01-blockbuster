@@ -13,6 +13,12 @@ class BlockbusterModel : ViewModel() {
     var tmdbService = TmdbService()
     var movies by mutableStateOf<List<Movie>>(emptyList())
         private set
+    var popularMovies by mutableStateOf<List<Movie>>(emptyList())
+        private set
+
+    var searchQuery by mutableStateOf("")
+
+
 
 
     var selectedScreen by mutableStateOf(ScreenID.MOVIES)
@@ -29,10 +35,23 @@ class BlockbusterModel : ViewModel() {
 
     fun loadMovies() {
         viewModelScope.launch {
-            movies = tmdbService.getDefaultMovies()
-
+            val movieResults = tmdbService.getDefaultMovies()
+            movies = movieResults
+            popularMovies = movieResults
         }
     }
+
+    fun searchMovies() {
+        viewModelScope.launch {
+            movies = tmdbService.searchMovies(searchQuery)
+        }
+    }
+
+    fun clearSearchResults() {
+        movies = popularMovies
+    }
+
+
 
     init {
         loadMovies()

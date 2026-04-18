@@ -47,8 +47,16 @@ class TmdbService {
 
 
 
-    fun searchMovies() : List<Movie> {
-        return listOf()
+    suspend fun searchMovies(query: String) : List<Movie> {
+        return withContext(Dispatchers.IO) {
+            val results = request("search/movie?query=$query&include_adult=false&language=en-US&page=1&api_key=$token")
+            val movies = mutableListOf<Movie>()
+            for (i in 0 until results.length()) {
+                val movie = results.getJSONObject(i)
+                movies.add(Movie(movie))
+            }
+            movies
+        }
     }
 
     fun getMovieDetails() : MovieDetails {
