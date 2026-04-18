@@ -8,13 +8,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import fhnw.emoba.blockbuster.ui.components.MovieCard
 import fhnw.emoba.blockbuster.viewmodel.BlockbusterModel
 import fhnw.emoba.blockbuster.viewmodel.ScreenID
 
@@ -48,13 +48,12 @@ fun MoviesScreen( viewModel: BlockbusterModel,
 
         LazyColumn() {
             items(viewModel.movies) { movie ->
-
-                Card(onClick = {
-                    viewModel.selectMovie(movie.id)
-
-                }) {
-                    Text(movie.title, )
-                }
+                MovieCard(
+                    movie = movie,
+                    isFavorite = movie in viewModel.favoriteMovies,
+                    onClick = { viewModel.selectMovie(it.id) },
+                    onFavoriteClick = { viewModel.toggleFavorite(it) },
+                )
             }
         }
     }

@@ -26,6 +26,9 @@ class BlockbusterModel : ViewModel() {
 
     var selectedMovieTrailer by mutableStateOf<Trailer?>(null)
 
+    var favoriteMovies by mutableStateOf<List<Movie>>(emptyList())
+        private set
+
 
     var selectedScreen by mutableStateOf(ScreenID.MOVIES)
     var previousScreen by mutableStateOf(ScreenID.MOVIES)
@@ -70,6 +73,14 @@ class BlockbusterModel : ViewModel() {
         viewModelScope.launch {
             selectedMovie = tmdbService.getMovieDetails(selectedMovieId)
             selectedMovieTrailer = tmdbService.getMovieTrailer(selectedMovieId)
+        }
+    }
+
+    fun toggleFavorite(movie: Movie) {
+        if (movie in favoriteMovies) {
+            favoriteMovies = favoriteMovies-movie
+        } else {
+            favoriteMovies = favoriteMovies+movie
         }
     }
 

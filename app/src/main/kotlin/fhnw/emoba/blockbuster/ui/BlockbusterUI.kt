@@ -74,11 +74,11 @@ private fun Body(viewModel: BlockbusterModel, paddingValues: PaddingValues) {
     with(viewModel) {
         Crossfade(
             targetState = selectedScreen,
-            animationSpec = tween(durationMillis = 3000, easing = Ease),
+            animationSpec = tween(durationMillis = 200, easing = Ease),
             modifier = Modifier.padding(paddingValues)
             ) { screen ->
                 when (screen) {
-                    ScreenID.FAVORITES  -> FavoritesScreen( navigateToScreen = { navigateTo(it) })
+                    ScreenID.FAVORITES  -> FavoritesScreen( viewModel = viewModel, navigateToScreen = { navigateTo(it) })
                     ScreenID.MOVIES     -> MoviesScreen(   viewModel = viewModel, navigateToScreen = { navigateTo(it) })
                     ScreenID.PEOPLE     -> PeopleScreen(    navigateToScreen = { navigateTo(it) })
                     ScreenID.DETAIL     -> DetailScreen(   viewModel = viewModel, navigateToScreen = { navigateTo(it) }, navigateBack = { navigateBack() })
