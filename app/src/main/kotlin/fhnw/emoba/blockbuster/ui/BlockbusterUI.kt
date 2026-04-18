@@ -59,7 +59,7 @@ private fun topBar(viewModel: BlockbusterModel) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Image(painterResource(R.drawable.movie_db_logo), "Movie DB Logo", Modifier.height(30.dp))
                     Text(
-                        text = selectedScreen.pageTitle,
+                        if (selectedScreen == ScreenID.DETAIL) selectedMovie?.title ?:"" else selectedScreen.title,
                         modifier = Modifier.padding(start = 20.dp),
                         fontWeight = FontWeight.W700
                     )
@@ -81,7 +81,7 @@ private fun Body(viewModel: BlockbusterModel, paddingValues: PaddingValues) {
                     ScreenID.FAVORITES  -> FavoritesScreen( navigateToScreen = { navigateTo(it) })
                     ScreenID.MOVIES     -> MoviesScreen(   viewModel = viewModel, navigateToScreen = { navigateTo(it) })
                     ScreenID.PEOPLE     -> PeopleScreen(    navigateToScreen = { navigateTo(it) })
-                    ScreenID.DETAIL     -> DetailScreen(    navigateToScreen = { navigateTo(it) }, navigateBack = { navigateBack() })
+                    ScreenID.DETAIL     -> DetailScreen(   viewModel = viewModel, navigateToScreen = { navigateTo(it) }, navigateBack = { navigateBack() })
                 }
 
         }
@@ -91,12 +91,15 @@ private fun Body(viewModel: BlockbusterModel, paddingValues: PaddingValues) {
 @Composable
 private fun TabNav(viewModel: BlockbusterModel) {
     with(viewModel) {
-        BottomAppBar(
-            containerColor = MaterialTheme.colorScheme.background,
-        ) {
-            PrimaryTabRow(selectedTabIndex = selectedScreen.ordinal) {
-                for (screen in ScreenID.entries) {
-                    if (screen.showNav) {
+        if (selectedScreen.showNav) {
+            val navScreens = ScreenID.entries.filter { it.showNav }
+            val selectedIndex = navScreens.indexOf(selectedScreen)
+
+            BottomAppBar(
+                containerColor = MaterialTheme.colorScheme.background,
+            ) {
+                PrimaryTabRow(selectedTabIndex = if (selectedIndex == -1) 0 else selectedIndex) {
+                    for (screen in navScreens) {
                         Tab(
                             text = { Text(screen.title) },
                             icon = { screen.icon?.let { Icon(it, "icon") } },
@@ -108,32 +111,6 @@ private fun TabNav(viewModel: BlockbusterModel) {
             }
         }
     }
-
-    /** If there's an issue with the details page
-     * with(viewModel) {
-     *         // Only show the BottomAppBar if the current screen is configured to show navigation.
-     *         // This avoids IndexOutOfBoundsException when selectedScreen is not in the tab list (like ScreenID.DETAIL).
-     *         if (selectedScreen.showNav) {
-     *             val navScreens = ScreenID.entries.filter { it.showNav }
-     *             val selectedIndex = navScreens.indexOf(selectedScreen)
-     *
-     *             BottomAppBar(
-     *                 containerColor = MaterialTheme.colorScheme.background,
-     *             ) {
-     *                 // Ensure the index is relative to the filtered list of screens shown in the TabRow
-     *                 PrimaryTabRow(selectedTabIndex = selectedIndex) {
-     *                     for (screen in navScreens) {
-     *                         Tab(
-     *                             text = { Text(screen.title) },
-     *                             icon = { screen.icon?.let { Icon(it, "icon") } },
-     *                             selected = screen == selectedScreen,
-     *                             onClick = { navigateTo(screen) },
-     *                         )
-     *                     }
-     *                 }
-     *             }
-     *         }
-     *     }**/
 }
 
 

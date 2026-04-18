@@ -1,11 +1,13 @@
 package fhnw.emoba.blockbuster.viewmodel
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fhnw.emoba.blockbuster.data.Movie
+import fhnw.emoba.blockbuster.data.MovieDetails
 import fhnw.emoba.blockbuster.data.TmdbService
 import kotlinx.coroutines.launch
 
@@ -18,8 +20,8 @@ class BlockbusterModel : ViewModel() {
 
     var searchQuery by mutableStateOf("")
 
-
-
+    var selectedMovieId by mutableIntStateOf(0)
+    var selectedMovie by mutableStateOf<MovieDetails?>(null)
 
     var selectedScreen by mutableStateOf(ScreenID.MOVIES)
     var previousScreen by mutableStateOf(ScreenID.MOVIES)
@@ -49,6 +51,22 @@ class BlockbusterModel : ViewModel() {
 
     fun clearSearchResults() {
         movies = popularMovies
+    }
+
+    fun selectMovie(movieId: Int) {
+        selectedMovieId = movieId
+        selectedMovie = null
+        loadMovieDetails()
+        navigateTo(ScreenID.DETAIL)
+    }
+
+    fun loadMovieDetails() {
+        if (selectedMovieId == 0) return
+
+        viewModelScope.launch {
+            selectedMovie = tmdbService.getMovieDetails(selectedMovieId)
+            print(selectedMovie.toString())
+        }
     }
 
 

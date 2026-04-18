@@ -6,19 +6,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
 import fhnw.emoba.blockbuster.viewmodel.BlockbusterModel
 import fhnw.emoba.blockbuster.viewmodel.ScreenID
 
@@ -52,7 +48,13 @@ fun MoviesScreen( viewModel: BlockbusterModel,
 
         LazyColumn() {
             items(viewModel.movies) { movie ->
-                Text(movie.title)
+
+                Card(onClick = {
+                    viewModel.selectMovie(movie.id)
+
+                }) {
+                    Text(movie.title, )
+                }
             }
         }
     }

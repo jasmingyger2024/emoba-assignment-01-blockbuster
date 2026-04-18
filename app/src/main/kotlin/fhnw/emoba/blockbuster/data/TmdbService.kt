@@ -32,6 +32,21 @@ class TmdbService {
         }
     }
 
+    private suspend fun requestDetails(path: String): JSONObject {
+        return withContext(Dispatchers.IO) {
+            var url = "$baseUrl/$path"
+
+            try {
+                val response = URL(url).readText()
+                val results = JSONObject(response)
+                results
+            } catch (e: Exception) {
+                println(e.message)
+                JSONObject()
+            }
+        }
+    }
+
     // Movies
     suspend fun getDefaultMovies() : List<Movie> {
         return withContext(Dispatchers.IO) {
@@ -45,8 +60,6 @@ class TmdbService {
         }
     }
 
-
-
     suspend fun searchMovies(query: String) : List<Movie> {
         return withContext(Dispatchers.IO) {
             val results = request("search/movie?query=$query&include_adult=false&language=en-US&page=1&api_key=$token")
@@ -59,8 +72,13 @@ class TmdbService {
         }
     }
 
-    fun getMovieDetails() : MovieDetails {
-        return MovieDetails(0)
+    suspend fun getMovieDetails(movieId : Int) : MovieDetails {
+        return withContext(Dispatchers.IO) {
+            val results = requestDetails("movie/$movieId?language=en-US&api_key=$token")
+
+            val movieDetail = MovieDetails(results)
+            movieDetail
+        }
     }
 
     fun getMovieTrailer() : Trailer {
@@ -77,8 +95,8 @@ class TmdbService {
         return listOf()
     }
 
-    fun getPersonDetails() : MovieDetails {
-        return MovieDetails(0)
+    fun getPersonDetails() : Int {
+        return 0
     }
 
 
