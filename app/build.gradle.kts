@@ -7,12 +7,6 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
-val localProperties = Properties().apply {
-    val file = rootProject.file("local.properties")
-    if (file.exists()) {
-        file.inputStream().use { load(it) }
-    }
-}
 
 room {
     schemaDirectory("$projectDir/schemas")
@@ -36,12 +30,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
-
-        buildConfigField(
-            "String",
-            "tmdp_api_key",
-            "\"${localProperties.getProperty("tmdp_api_key", "")}\""
-        )
     }
 
     signingConfigs {
