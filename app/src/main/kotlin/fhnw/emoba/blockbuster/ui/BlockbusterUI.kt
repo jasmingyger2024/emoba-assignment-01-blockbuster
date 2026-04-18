@@ -59,7 +59,7 @@ private fun topBar(viewModel: BlockbusterModel) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Image(painterResource(R.drawable.movie_db_logo), "Movie DB Logo", Modifier.height(30.dp))
                     Text(
-                        text = selectedScreen.title,
+                        text = selectedScreen.pageTitle,
                         modifier = Modifier.padding(start = 20.dp),
                         fontWeight = FontWeight.W700
                     )
@@ -79,7 +79,7 @@ private fun Body(viewModel: BlockbusterModel, paddingValues: PaddingValues) {
             ) { screen ->
                 when (screen) {
                     ScreenID.FAVORITES  -> FavoritesScreen( navigateToScreen = { navigateTo(it) })
-                    ScreenID.MOVIES     -> MoviesScreen(    navigateToScreen = { navigateTo(it) })
+                    ScreenID.MOVIES     -> MoviesScreen(   viewModel = viewModel, navigateToScreen = { navigateTo(it) })
                     ScreenID.PEOPLE     -> PeopleScreen(    navigateToScreen = { navigateTo(it) })
                     ScreenID.DETAIL     -> DetailScreen(    navigateToScreen = { navigateTo(it) }, navigateBack = { navigateBack() })
                 }
