@@ -81,8 +81,17 @@ class TmdbService {
         }
     }
 
-    fun getMovieTrailer() : Trailer {
-        return Trailer(0)
+    suspend fun getMovieTrailer(movieId : Int) : Trailer {
+        return withContext(Dispatchers.IO) {
+            val results = request("movie/$movieId/videos?language=en-US&api_key=$token")
+
+            val trailers = mutableListOf<Trailer>()
+            for (i in 0 until results.length()) {
+                val trailer = results.getJSONObject(i)
+                trailers.add(Trailer(trailer))
+            }
+            trailers.filter { it.official && it.type == "Trailer" }.first()
+        }
     }
 
 

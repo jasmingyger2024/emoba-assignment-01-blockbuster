@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import fhnw.emoba.blockbuster.data.Movie
 import fhnw.emoba.blockbuster.data.MovieDetails
 import fhnw.emoba.blockbuster.data.TmdbService
+import fhnw.emoba.blockbuster.data.Trailer
 import kotlinx.coroutines.launch
 
 class BlockbusterModel : ViewModel() {
@@ -22,6 +23,9 @@ class BlockbusterModel : ViewModel() {
 
     var selectedMovieId by mutableIntStateOf(0)
     var selectedMovie by mutableStateOf<MovieDetails?>(null)
+
+    var selectedMovieTrailer by mutableStateOf<Trailer?>(null)
+
 
     var selectedScreen by mutableStateOf(ScreenID.MOVIES)
     var previousScreen by mutableStateOf(ScreenID.MOVIES)
@@ -65,7 +69,7 @@ class BlockbusterModel : ViewModel() {
 
         viewModelScope.launch {
             selectedMovie = tmdbService.getMovieDetails(selectedMovieId)
-            print(selectedMovie.toString())
+            selectedMovieTrailer = tmdbService.getMovieTrailer(selectedMovieId)
         }
     }
 
