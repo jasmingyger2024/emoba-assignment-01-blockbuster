@@ -1,6 +1,8 @@
 package fhnw.emoba.blockbuster.data
 
 import org.json.JSONObject
+
+// AI Generated based on output preview on https://developer.themoviedb.org/reference/movie-details
 data class MovieDetails(
     val adult: Boolean = false,
     val backdrop_path: String? = null,

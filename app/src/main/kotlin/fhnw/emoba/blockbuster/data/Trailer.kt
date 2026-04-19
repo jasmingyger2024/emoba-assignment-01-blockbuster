@@ -2,6 +2,7 @@ package fhnw.emoba.blockbuster.data
 
 import org.json.JSONObject
 
+// AI Generated based on output preview on https://developer.themoviedb.org/reference/movie-videos
 data class Trailer(
     val id: String,
     val iso_639_1: String,
