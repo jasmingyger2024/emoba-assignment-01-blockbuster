@@ -51,7 +51,9 @@ fun PeopleScreen(
 
         LazyColumn() {
             items(viewModel.people) { person ->
-                Card() {
+                Card(
+                    onClick = { viewModel.selectPerson(person.id) }
+                ) {
                     Text(person.name)
                 }
             }

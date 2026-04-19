@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fhnw.emoba.blockbuster.data.Movie
 import fhnw.emoba.blockbuster.data.MovieDetails
+import fhnw.emoba.blockbuster.data.PersonDetails
 import fhnw.emoba.blockbuster.data.Person
 import fhnw.emoba.blockbuster.data.TmdbService
 import fhnw.emoba.blockbuster.data.Trailer
@@ -26,6 +27,8 @@ class BlockbusterModel : ViewModel() {
     var searchQuery by mutableStateOf("")
     var selectedMovieId by mutableIntStateOf(0)
     var selectedMovie by mutableStateOf<MovieDetails?>(null)
+    var selectedPersonId by mutableIntStateOf(0)
+    var selectedPerson by mutableStateOf<PersonDetails?>(null)
     var selectedMovieTrailer by mutableStateOf<Trailer?>(null)
     var favoriteMovies by mutableStateOf<List<Movie>>(emptyList())
         private set
@@ -93,6 +96,23 @@ class BlockbusterModel : ViewModel() {
         }
     }
 
+    // Person Detail Functions
+    fun selectPerson(personId: Int) {
+        selectedPersonId = personId
+        selectedPerson = null
+        loadPersonDetails()
+        navigateTo(ScreenID.DETAIL)
+    }
+
+    fun loadPersonDetails() {
+        if (selectedPersonId == 0) return
+
+        viewModelScope.launch {
+            selectedPerson = tmdbService.getPersonDetails(selectedPersonId)
+        }
+    }
+
+    // Favorite Functions
     fun toggleFavorite(movie: Movie) {
         if (movie in favoriteMovies) {
             favoriteMovies = favoriteMovies-movie
@@ -100,7 +120,6 @@ class BlockbusterModel : ViewModel() {
             favoriteMovies = favoriteMovies+movie
         }
     }
-
 
 
     init {

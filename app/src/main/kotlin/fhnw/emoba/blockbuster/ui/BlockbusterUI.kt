@@ -74,11 +74,15 @@ private fun topBar(viewModel: BlockbusterModel) {
                             Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
                         }
                     }
-                        Text(
-                        if (selectedScreen == ScreenID.DETAIL) selectedMovie?.title ?:"" else selectedScreen.title,
+                    Text(
+                        text = when {
+                            selectedScreen == ScreenID.DETAIL -> {
+                                selectedMovie?.title ?: selectedPerson?.name ?: ""
+                            } else -> selectedScreen.title
+                        },
                         modifier = Modifier.padding(start = 20.dp),
                         fontWeight = FontWeight.W700
-                    )
+                     )
                 }
             }
         )

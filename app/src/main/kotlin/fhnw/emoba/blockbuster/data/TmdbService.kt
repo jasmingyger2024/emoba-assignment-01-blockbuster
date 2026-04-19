@@ -120,8 +120,13 @@ class TmdbService {
         }
     }
 
-    fun getPersonDetails() : Int {
-        return 0
+    suspend fun getPersonDetails(personId : Int) : PersonDetails {
+        return withContext(Dispatchers.IO) {
+            val results = requestDetails("person/$personId?language=en-US&api_key=$token")
+
+            val personDetail = PersonDetails(results)
+            personDetail
+        }
     }
 
 
