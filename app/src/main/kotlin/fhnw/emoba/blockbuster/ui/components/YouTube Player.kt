@@ -15,10 +15,10 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 
 @Composable
 fun TrailerPlayer(videoId: String) {
+    val activityLifecycle = LocalLifecycleOwner.current.lifecycle
     val context = LocalContext.current
-    val lifecycle = LocalLifecycleOwner.current.lifecycle
 
-    val playerView = remember(videoId) {
+    val youtubePlayer = remember(videoId) {
         YouTubePlayerView(context).apply {
             enableAutomaticInitialization = false
             initialize(object : AbstractYouTubePlayerListener() {
@@ -29,17 +29,17 @@ fun TrailerPlayer(videoId: String) {
         }
     }
 
-    DisposableEffect(playerView, lifecycle) {
-        lifecycle.addObserver(playerView)
+    DisposableEffect(youtubePlayer, activityLifecycle) {
+        activityLifecycle.addObserver(youtubePlayer)
 
         onDispose {
-            lifecycle.removeObserver(playerView)
-            playerView.release()
+            activityLifecycle.removeObserver(youtubePlayer)
+            youtubePlayer.release()
         }
     }
 
     AndroidView(
-        factory = { playerView },
+        factory = { youtubePlayer },
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
