@@ -9,9 +9,15 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
@@ -57,8 +63,18 @@ private fun topBar(viewModel: BlockbusterModel) {
         TopAppBar(
             title = {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Image(painterResource(R.drawable.movie_db_logo), "Movie DB Logo", Modifier.height(30.dp))
-                    Text(
+                    if (selectedScreen != ScreenID.DETAIL) {
+                        Image(
+                            painterResource(R.drawable.movie_db_logo),
+                            "Movie DB Logo",
+                            Modifier.height(30.dp)
+                        )
+                    } else {
+                        IconButton(onClick = { navigateBack() }) {
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
+                        }
+                    }
+                        Text(
                         if (selectedScreen == ScreenID.DETAIL) selectedMovie?.title ?:"" else selectedScreen.title,
                         modifier = Modifier.padding(start = 20.dp),
                         fontWeight = FontWeight.W700
