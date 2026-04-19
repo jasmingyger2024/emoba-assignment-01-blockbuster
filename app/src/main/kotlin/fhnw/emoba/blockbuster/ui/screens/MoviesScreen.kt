@@ -32,18 +32,20 @@ fun MoviesScreen( viewModel: BlockbusterModel,
                     viewModel.searchQuery = it
                     if (it.isBlank()) {
                         viewModel.clearSearchResults()
+                    } else {
+                        viewModel.searchMovies()
                     }
                 },
                 placeholder = { Text("What Movie are you looking for?") },
                 keyboardActions = KeyboardActions(
                     onSearch = { viewModel.searchMovies() }),
                 singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
             )
-
-            IconButton(onClick = { viewModel.searchMovies() }) {
-                Icon(Icons.Default.Search, contentDescription = null)
-            }
         }
+
+
+
 
 
         LazyColumn() {

@@ -34,17 +34,18 @@ fun PeopleScreen(
                     viewModel.searchQuery = it
                     if (it.isBlank()) {
                         viewModel.clearSearchResults()
+                    } else {
+                        viewModel.searchPeople()
                     }
                 },
                 placeholder = { Text("Which Actor are you looking for?") },
-                keyboardActions = KeyboardActions(
-                    onSearch = { viewModel.searchMovies() }),
                 singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+                keyboardActions = KeyboardActions(
+                    onSearch = { viewModel.searchPeople() }),
+
             )
 
-            IconButton(onClick = { viewModel.searchMovies() }) {
-                Icon(Icons.Default.Search, contentDescription = null)
-            }
         }
 
 

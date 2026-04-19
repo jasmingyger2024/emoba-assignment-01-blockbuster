@@ -37,7 +37,6 @@ class BlockbusterModel : ViewModel() {
         previousScreen = selectedScreen
         selectedScreen = screen
     }
-
     fun navigateBack() {
         selectedScreen = previousScreen
     }
@@ -66,8 +65,15 @@ class BlockbusterModel : ViewModel() {
         }
     }
 
+    fun searchPeople() {
+        viewModelScope.launch {
+            people = tmdbService.searchPeople(searchQuery)
+        }
+    }
+
     fun clearSearchResults() {
         movies = popularMovies
+        people = popularPeople
     }
 
     // Movie Detail Functions

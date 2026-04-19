@@ -99,17 +99,25 @@ class TmdbService {
     suspend fun getDefaultPeople() : List<Person> {
         return withContext(Dispatchers.IO) {
             val results = request("person/popular?language=en-US&page=1&api_key=$token")
-            val persons = mutableListOf<Person>()
+            val people = mutableListOf<Person>()
             for (i in 0 until results.length()) {
                 val person = results.getJSONObject(i)
-                persons.add(Person(person))
+                people.add(Person(person))
             }
-            persons
+            people
         }
     }
 
-    fun searchPeople() : List<Person> {
-        return listOf()
+    suspend fun searchPeople(query: String) : List<Person> {
+        return withContext(Dispatchers.IO) {
+            val results = request("search/person?query=$query&include_adult=false&language=en-US&page=1&api_key=$token")
+            val people = mutableListOf<Person>()
+            for (i in 0 until results.length()) {
+                val person = results.getJSONObject(i)
+                people.add(Person(person))
+            }
+            people
+        }
     }
 
     fun getPersonDetails() : Int {
