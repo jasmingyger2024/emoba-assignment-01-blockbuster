@@ -1,10 +1,13 @@
 package fhnw.emoba.blockbuster.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -13,10 +16,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.media3.effect.ByteBufferGlEffect
 import fhnw.emoba.blockbuster.data.Movie
 
 @Composable
@@ -27,6 +33,7 @@ fun MovieCard(
     onFavoriteClick: (Movie) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+
     Card(
         onClick = { onClick(movie) },
         modifier = modifier
@@ -40,6 +47,15 @@ fun MovieCard(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
+            movie.poster?.let {
+                Image(
+                    it,
+                    contentDescription = movie.title,
+                    modifier = Modifier.width(80.dp),
+                    contentScale = ContentScale.Fit,
+                    alignment = Alignment.Center,
+                )
+            }
             Column(
                 modifier = Modifier.weight(1f),
             ) {

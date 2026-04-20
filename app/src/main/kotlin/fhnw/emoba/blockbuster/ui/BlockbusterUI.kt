@@ -63,22 +63,24 @@ private fun topBar(viewModel: BlockbusterModel) {
         TopAppBar(
             title = {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    if (selectedScreen != ScreenID.DETAIL) {
+                    if (selectedScreen == ScreenID.DETAIL || selectedScreen == ScreenID.PERSONDETAIL) {
+                        IconButton(onClick = { navigateBack() }) {
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
+                        }
+                    } else {
                         Image(
                             painterResource(R.drawable.movie_db_logo),
                             "Movie DB Logo",
                             Modifier.height(30.dp)
                         )
-                    } else {
-                        IconButton(onClick = { navigateBack() }) {
-                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
-                        }
                     }
                     Text(
-                        text = when {
-                            selectedScreen == ScreenID.DETAIL -> {
-                                selectedMovie?.title ?: selectedPerson?.name ?: ""
-                            } else -> selectedScreen.title
+                        text = if (selectedScreen == ScreenID.DETAIL) {
+                            selectedMovie?.title ?: ""
+                        } else if (selectedScreen == ScreenID.PERSONDETAIL) {
+                            selectedPerson?.name ?: ""
+                        } else {
+                            selectedScreen.title
                         },
                         modifier = Modifier.padding(start = 20.dp),
                         fontWeight = FontWeight.W700

@@ -1,5 +1,9 @@
 package fhnw.emoba.blockbuster.data
 
+import android.graphics.BitmapFactory
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
+import fhnw.emoba.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
@@ -47,14 +51,31 @@ class TmdbService {
         }
     }
 
+    suspend fun requestPoster(posterPath: String): ImageBitmap {
+        return withContext(Dispatchers.IO) {
+            try {
+                val url = URL("https://image.tmdb.org/t/p/w185$posterPath")
+                val bitmap = BitmapFactory.decodeStream(url.openStream())
+                bitmap.asImageBitmap()
+            } catch (e: Exception) {
+                println(e.message)
+                R.drawable.movie_db_logo
+            } as ImageBitmap
+        }
+    }
+
     // Movies
     suspend fun getDefaultMovies() : List<Movie> {
         return withContext(Dispatchers.IO) {
             val results = request("movie/popular?language=en-US&page=1&api_key=$token")
             val movies = mutableListOf<Movie>()
             for (i in 0 until results.length()) {
-                val movie = results.getJSONObject(i)
-                movies.add(Movie(movie))
+                val jsonObject = results.getJSONObject(i)
+                var movie = Movie(jsonObject)
+                if (movie.poster_path != null && movie.poster_path != "") {
+                    movie.poster = requestPoster(movie.poster_path)
+                }
+                movies.add(movie)
             }
             movies
         }
@@ -93,6 +114,7 @@ class TmdbService {
             trailers.filter { it.official && it.type == "Trailer" }.first()
         }
     }
+
 
 
     // People

@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fhnw.emoba.blockbuster.data.Movie
@@ -101,7 +102,7 @@ class BlockbusterModel : ViewModel() {
         selectedPersonId = personId
         selectedPerson = null
         loadPersonDetails()
-        navigateTo(ScreenID.DETAIL)
+        navigateTo(ScreenID.PERSONDETAIL)
     }
 
     fun loadPersonDetails() {
