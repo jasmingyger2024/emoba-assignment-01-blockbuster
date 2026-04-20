@@ -42,7 +42,7 @@ fun MovieCard(
         onClick = { onClick(movie) },
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 6.dp)
+            .padding(vertical = 6.dp)
 
     ) {
         Row(

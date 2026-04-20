@@ -102,7 +102,7 @@ private fun Body(viewModel: BlockbusterModel, paddingValues: PaddingValues) {
                 when (screen) {
                     ScreenID.FAVORITES  -> FavoritesScreen( viewModel = viewModel, navigateToScreen = { navigateTo(it) })
                     ScreenID.MOVIES     -> MoviesScreen(    viewModel = viewModel, navigateToScreen = { navigateTo(it) })
-                    ScreenID.PEOPLE     -> PeopleScreen(    viewModel = viewModel, navigateToScreen = { navigateTo(it) })
+                    ScreenID.PEOPLE     -> PeopleScreen(    viewModel = viewModel)
                     ScreenID.DETAIL     -> DetailScreen(    viewModel = viewModel, navigateToScreen = { navigateTo(it) }, navigateBack = { navigateBack() })
                     ScreenID.PERSONDETAIL -> PersonDetailScreen(viewModel = viewModel)
                 }

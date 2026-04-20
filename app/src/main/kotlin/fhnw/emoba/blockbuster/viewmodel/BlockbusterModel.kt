@@ -76,6 +76,7 @@ class BlockbusterModel : ViewModel() {
     }
 
     fun clearSearchResults() {
+        searchQuery = ""
         movies = popularMovies
         people = popularPeople
     }

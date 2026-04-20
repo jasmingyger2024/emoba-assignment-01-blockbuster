@@ -1,5 +1,6 @@
 package fhnw.emoba.blockbuster.data
 
+import androidx.compose.ui.graphics.ImageBitmap
 import org.json.JSONObject
 
 data class Person(
@@ -10,6 +11,7 @@ data class Person(
     val known_for_department: String,
     val popularity: Double,
     val profile_path: String?,
+    var poster: ImageBitmap?,
     val known_for: List<KnownFor>
 ) {
     constructor(json: JSONObject) : this (
@@ -20,6 +22,7 @@ data class Person(
         known_for_department = json.optString("known_for_department"),
         popularity = json.getDouble("popularity"),
         profile_path = json.optString("profile_path"),
+        poster = null,
         known_for = json.getJSONArray("known_for").let { knownForArray ->
             List(knownForArray.length()) { index ->
                 KnownFor(knownForArray.getJSONObject(index))
