@@ -39,7 +39,7 @@ import fhnw.emoba.blockbuster.ui.screens.FavoritesScreen
 import fhnw.emoba.blockbuster.ui.screens.MoviesScreen
 import fhnw.emoba.blockbuster.ui.screens.PeopleScreen
 import fhnw.emoba.blockbuster.ui.screens.DetailScreen
-
+import fhnw.emoba.blockbuster.ui.screens.PersonDetailScreen
 
 
 @Composable
@@ -102,6 +102,7 @@ private fun Body(viewModel: BlockbusterModel, paddingValues: PaddingValues) {
                     ScreenID.MOVIES     -> MoviesScreen(    viewModel = viewModel, navigateToScreen = { navigateTo(it) })
                     ScreenID.PEOPLE     -> PeopleScreen(    viewModel = viewModel, navigateToScreen = { navigateTo(it) })
                     ScreenID.DETAIL     -> DetailScreen(    viewModel = viewModel, navigateToScreen = { navigateTo(it) }, navigateBack = { navigateBack() })
+                    ScreenID.PERSONDETAIL -> PersonDetailScreen(viewModel = viewModel)
                 }
 
         }
@@ -175,5 +176,14 @@ private fun PeopleScreenPreview() {
 private fun DetailScreenPreview() {
     val vm = BlockbusterModel()
     vm.selectedScreen = ScreenID.DETAIL
+    BlockbusterUI(viewModel = vm)
+}
+
+@SuppressLint("ViewModelConstructorInComposable")
+@Preview
+@Composable
+private fun PersonDetailScreenPreview() {
+    val vm = BlockbusterModel()
+    vm.selectedScreen = ScreenID.PERSONDETAIL
     BlockbusterUI(viewModel = vm)
 }

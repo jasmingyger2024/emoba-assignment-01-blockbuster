@@ -11,5 +11,6 @@ enum class ScreenID (val title: String, val showNav: Boolean, val pageTitle: Str
     FAVORITES("Favorites", true, "Your Absolute Favorites", Icons.Filled.Favorite),
     MOVIES("Movies", true, "Looking for some Movies?", Icons.Filled.Movie ),
     PEOPLE("Actors", true,"Who's in the Movies?", Icons.Filled.People),
-    DETAIL("", false, "change that!!!")
+    DETAIL("", false, ""),
+    PERSONDETAIL("", false, "")
 }
