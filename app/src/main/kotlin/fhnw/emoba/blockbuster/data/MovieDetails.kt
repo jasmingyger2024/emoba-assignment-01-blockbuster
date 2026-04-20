@@ -25,6 +25,10 @@ data class MovieDetails(
     val vote_average: Double = 0.0,
     val vote_count: Int = 0
 ) {
+    val posterUrl: String
+        get() = poster_path?.takeIf { it.isNotBlank() }?.let { "https://image.tmdb.org/t/p/w500$it" } ?: ""
+    val backdropUrl: String
+        get() = backdrop_path?.takeIf { it.isNotBlank() }?.let { "https://image.tmdb.org/t/p/w780$it" } ?: ""
 
     constructor(json: JSONObject) : this(
         adult = json.getBoolean("adult"),
@@ -49,7 +53,5 @@ data class MovieDetails(
         vote_count = json.optInt("vote_count")
         )
 }
-
-
 
 

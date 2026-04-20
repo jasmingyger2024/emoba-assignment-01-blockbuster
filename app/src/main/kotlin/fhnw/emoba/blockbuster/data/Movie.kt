@@ -30,4 +30,3 @@ data class Movie(
         vote_count = json.getInt("vote_count"),
     )
 }
-

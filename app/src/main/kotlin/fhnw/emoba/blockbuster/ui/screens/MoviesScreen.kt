@@ -21,9 +21,7 @@ import fhnw.emoba.blockbuster.viewmodel.ScreenID
 
 @Composable
 fun MoviesScreen(
-    viewModel: BlockbusterModel,
-    navigateToScreen: (ScreenID) -> Unit,
-) {
+    viewModel: BlockbusterModel) {
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
