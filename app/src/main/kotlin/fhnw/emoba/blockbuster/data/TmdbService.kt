@@ -102,7 +102,7 @@ class TmdbService {
         }
     }
 
-    suspend fun getMovieTrailer(movieId : Int) : Trailer {
+    suspend fun getMovieTrailer(movieId : Int) : Trailer? {
         return withContext(Dispatchers.IO) {
             val results = request("movie/$movieId/videos?language=en-US&api_key=$token")
 
@@ -111,7 +111,12 @@ class TmdbService {
                 val trailer = results.getJSONObject(i)
                 trailers.add(Trailer(trailer))
             }
-            trailers.filter { it.official && it.type == "Trailer" }.first()
+            val officialTrailers = trailers.filter { it.official && it.type == "Trailer" }
+            if (officialTrailers.isNotEmpty()) {
+                officialTrailers[0]
+            } else {
+                null
+            }
         }
     }
 
